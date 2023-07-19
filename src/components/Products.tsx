@@ -1,11 +1,15 @@
 import Image from "next/image";
+import { useDispatch } from "react-redux";
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 
 import { Product } from "../../types";
 import FormattedPrice from "./FormattedPrice";
+import { addToCart } from "@/store/next-slice";
 
 const Products = ({ products }: { products: Product[] }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       {products.map((product) => (
@@ -56,6 +60,7 @@ const Products = ({ products }: { products: Product[] }) => {
             </p>
             <button
               type="button"
+              onClick={() => dispatch(addToCart({ ...product, quantity: 1 }))}
               className="h-10 font-medium bg-amazon_blue text-white rounded-md hover:bg-amazon_yellow hover:text-black transition duration-300 mt-2"
             >
               Add to Cart
